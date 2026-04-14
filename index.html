@@ -149,6 +149,50 @@ footer{background:rgba(6,8,16,.98);border-top:1px solid var(--border);padding:2.
   section{padding:4rem 1.5rem;}.agrid,.egrid{grid-template-columns:1fr;}
   footer{padding:2rem 1.5rem;}
 }
+
+/* ── LANG BAR ── */
+#lang-bar{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:9999;
+  background:rgba(6,8,16,0.97);
+  border-top:1px solid rgba(0,255,136,0.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.6rem;
+  padding:.7rem 1rem;
+}
+#lang-bar span{
+  font-family:'Fira Code',monospace;
+  font-size:.65rem;color:rgba(106,116,144,0.8);
+  letter-spacing:.1em;margin-right:.4rem;
+}
+.lb{
+  font-family:'Fira Code',monospace;
+  font-size:.75rem;font-weight:500;
+  color:#6a7490;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:.45rem 1.1rem;
+  border-radius:6px;
+  cursor:pointer;
+  transition:all .2s;
+  letter-spacing:.06em;
+}
+.lb:hover{
+  color:var(--green);
+  border-color:rgba(0,255,136,0.4);
+  background:rgba(0,255,136,0.07);
+}
+.lb.on{
+  color:#060810;
+  background:var(--green);
+  border-color:var(--green);
+  font-weight:700;
+}
+/* extra bottom padding so footer not hidden behind bar */
+footer{ margin-bottom:52px; }
 </style>
 </head>
 <body>
@@ -164,14 +208,7 @@ footer{background:rgba(6,8,16,.98);border-top:1px solid var(--border);padding:2.
     <li><a href="#skills" data-num="04." data-i="nav_skills">Skills</a></li>
     <li><a href="#certifications" data-num="05." data-i="nav_certs">Certs</a></li>
     <li><a href="#education" data-num="06." data-i="nav_edu">Education</a></li>
-    <li>
-      <div class="lang-switcher">
-        <button class="lb on" onclick="setLang('en')">EN</button>
-        <button class="lb" onclick="setLang('it')">IT</button>
-        <button class="lb" onclick="setLang('de')">DE</button>
-        <button class="lb" onclick="setLang('nl')">NL</button>
-      </div>
-    </li>
+
   </ul>
   <a class="nav-btn" href="mailto:anusshaikh124@gmail.com">./contact</a>
 </nav>
@@ -402,7 +439,8 @@ function setLang(l){
     if(t[k]!==undefined) el.textContent=t[k];
   });
   document.querySelectorAll('.lb').forEach(function(b){
-    b.classList.toggle('on', b.textContent===l.toUpperCase());
+    var txt=b.textContent.trim().substring(0,2).toLowerCase();
+    b.classList.toggle('on', txt===l);
   });
 }
 var cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
@@ -440,5 +478,14 @@ document.querySelectorAll('.st').forEach(function(el){cObs.observe(el);});
 var bObs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('.skb').forEach(function(b){b.style.width=b.dataset.w+'%';});bObs.unobserve(e.target);}});},{threshold:.3});
 document.querySelectorAll('.sg').forEach(function(el){bObs.observe(el);});
 </script>
+
+<!-- LANGUAGE BAR -->
+<div id="lang-bar">
+  <span>&#127760; LANGUAGE:</span>
+  <button class="lb on"  onclick="setLang('en')">EN &nbsp;English</button>
+  <button class="lb"     onclick="setLang('it')">IT &nbsp;Italiano</button>
+  <button class="lb"     onclick="setLang('de')">DE &nbsp;Deutsch</button>
+  <button class="lb"     onclick="setLang('nl')">NL &nbsp;Nederlands</button>
+</div>
 </body>
 </html>
