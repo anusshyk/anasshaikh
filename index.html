@@ -126,6 +126,8 @@ section{position:relative;z-index:10;padding:6rem 2.5rem;max-width:1140px;margin
 .tag:hover{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.25);}
 
 /* ── PROJECTS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:1.4rem;}
+@media(max-width:960px){.proj-grid{grid-template-columns:1fr;}}
 .proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
 .proj-card:hover{border-color:rgba(124,58,237,.3);transform:translateY(-3px);}
 .proj-card::after{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(124,58,237,.07),transparent 65%);pointer-events:none;}
@@ -313,21 +315,74 @@ footer a:hover{color:#fff;}
     </ul>
     <div class="tags"><span class="tag">SolarWinds NPM</span><span class="tag">SolarWinds NTA</span><span class="tag">Sophos Firewall</span><span class="tag">Kiwi Syslog</span><span class="tag">NOC Operations</span></div>
   </div>
+
+  <div class="exp-card rv d2">
+    <div class="exp-header">
+      <div>
+        <div class="exp-title-name">Technical Support Engineer</div>
+        <div class="exp-co">Connect Communications (Pvt) Ltd</div>
+        <div class="exp-loc">Karachi, Pakistan</div>
+      </div>
+      <div class="exp-date">Sep 2021 — Apr 2022</div>
+    </div>
+    <ul class="exp-bullets">
+      <li>Provided <strong>Level 1 &amp; 2 technical support</strong> and troubleshooting for corporate customers, area representatives and residential users via calls and email.</li>
+      <li>Monitored network infrastructure and escalated issues to relevant departments with follow-up until resolution and RFO acceptance.</li>
+      <li>Telneted <strong>switches and routers</strong> to diagnose last-mile connectivity issues and verify data connections across all areas.</li>
+      <li>Configured client-end devices remotely through virtual access; coordinated with fibre teams and field engineers for end-to-end issue resolution.</li>
+    </ul>
+    <div class="tags"><span class="tag">DPLC</span><span class="tag">Secure CRT</span><span class="tag">PRTG</span><span class="tag">PPPoE Monitor</span><span class="tag">SolarWinds</span><span class="tag">Cacti</span><span class="tag">Network Troubleshooting</span></div>
+  </div>
 </section>
 
 <section id="projects">
   <div class="sec-tag rv" data-i="proj_tag">// projects</div>
   <h2 class="sec-title rv" data-i="proj_title">What I'm Building</h2>
   <p class="sec-sub rv" data-i="proj_sub">Active research &amp; development.</p>
-  <div class="proj-card rv">
-    <div class="proj-badge"><div class="proj-badge-dot"></div><span data-i="thesis_status">In Progress — Expected Dec 2026</span></div>
-    <div class="proj-title" data-i="thesis_title">MSc Thesis — NIS2 &amp; DORA Risk-Adjusted Compliance Model</div>
-    <ul class="exp-bullets">
-      <li data-i="thesis_b1">Technical analysis of cybersecurity risk management obligations under Article 21 of the NIS2 Directive.</li>
-      <li data-i="thesis_b2">Comparative analysis of NIS2 and DORA obligations for financial entities.</li>
-      <li data-i="thesis_b3">Designed a risk-adjusted compliance scoring model mapped to ISO 27001, NIST CSF 2.0, MITRE ATT&amp;CK and D3FEND.</li>
-    </ul>
-    <div class="tags"><span class="tag">NIS2</span><span class="tag">DORA</span><span class="tag">ISO 27001</span><span class="tag">NIST CSF 2.0</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">D3FEND</span><span class="tag">Risk Management</span><span class="tag">GRC</span></div>
+  <div class="proj-grid">
+    <div class="proj-card rv">
+      <div class="proj-badge"><div class="proj-badge-dot"></div><span data-i="thesis_status">In Progress — Expected Dec 2026</span></div>
+      <div class="proj-title" data-i="thesis_title">MSc Thesis — NIS2 &amp; DORA Risk-Adjusted Compliance Model</div>
+      <ul class="exp-bullets">
+        <li data-i="thesis_b1">Technical analysis of cybersecurity risk management obligations under Article 21 of the NIS2 Directive.</li>
+        <li data-i="thesis_b2">Comparative analysis of NIS2 and DORA obligations for financial entities.</li>
+        <li data-i="thesis_b3">Designed a risk-adjusted compliance scoring model mapped to ISO 27001, NIST CSF 2.0, MITRE ATT&amp;CK and D3FEND.</li>
+      </ul>
+      <div class="tags"><span class="tag">NIS2</span><span class="tag">DORA</span><span class="tag">ISO 27001</span><span class="tag">NIST CSF 2.0</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">D3FEND</span><span class="tag">Risk Management</span><span class="tag">GRC</span></div>
+    </div>
+
+    <div class="proj-card rv d1">
+      <div class="proj-badge proj-badge-cyan"><div class="proj-badge-dot" style="background:#00e5ff;"></div><span style="color:#00e5ff;">AI / LLM Project</span></div>
+      <div class="proj-title">NIS2 Compliance Assessment Agent</div>
+      <ul class="exp-bullets">
+        <li>Designed and developed an <strong>AI-driven compliance agent</strong> using LangChain, ChromaDB, and LLMs to automate NIS2 Article 21 evidence mapping.</li>
+        <li>Automates <strong>compliance evaluation</strong> against NIS2 controls and generates actionable remediation recommendations.</li>
+        <li>RAG pipeline built on ChromaDB vector store for semantic retrieval of regulatory documents and evidence.</li>
+      </ul>
+      <div class="tags"><span class="tag">LangChain</span><span class="tag">ChromaDB</span><span class="tag">LLM / RAG</span><span class="tag">NIS2 Article 21</span><span class="tag">Python</span><span class="tag">Vector DB</span><span class="tag">AI Agents</span></div>
+    </div>
+
+    <div class="proj-card rv d2">
+      <div class="proj-badge" style="background:rgba(255,0,110,.08);border-color:rgba(255,0,110,.22);"><div class="proj-badge-dot" style="background:#ff006e;animation:pulse-purple 1.5s infinite;"></div><span style="color:#ff6b9d;">ML / Security Research</span></div>
+      <div class="proj-title">Malware Classification via Neural Networks</div>
+      <ul class="exp-bullets">
+        <li>Developed <strong>FFNNs, RNNs, and GNNs</strong> for malware classification from API-call sequences.</li>
+        <li>Full pipeline: data preprocessing, feature engineering, hyperparameter optimisation, and comparative performance evaluation across architectures.</li>
+        <li>Evaluated model accuracy, precision, recall and F1 score across malware families using real-world API-call datasets.</li>
+      </ul>
+      <div class="tags"><span class="tag">PyTorch</span><span class="tag">FFNN</span><span class="tag">RNN</span><span class="tag">GNN</span><span class="tag">Malware Analysis</span><span class="tag">API Call Sequences</span><span class="tag">Feature Engineering</span></div>
+    </div>
+
+    <div class="proj-card rv d1">
+      <div class="proj-badge" style="background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.2);"><div class="proj-badge-dot" style="background:#fbbf24;animation:pulse-purple 1.5s infinite;"></div><span style="color:#fbbf24;">Voice AI Project</span></div>
+      <div class="proj-title">Italian Language Learning Voice Agent</div>
+      <ul class="exp-bullets">
+        <li>Built a <strong>conversational voice agent</strong> for interactive Italian language learning using speech-to-text and LLM-driven responses.</li>
+        <li>Supports real-time pronunciation feedback, vocabulary drills, and contextual conversation practice.</li>
+        <li>Practical tool developed to support Italian language acquisition while living in Turin, Italy.</li>
+      </ul>
+      <div class="tags"><span class="tag">Voice AI</span><span class="tag">Speech-to-Text</span><span class="tag">LLM</span><span class="tag">Python</span><span class="tag">NLP</span><span class="tag">Italian</span></div>
+    </div>
   </div>
 </section>
 
