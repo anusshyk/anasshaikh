@@ -5,145 +5,201 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Muhammad Anas Shaikh | Security Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#060810;--bg2:#0a0d1a;--bg3:#0d1120;
-  --green:#00ff88;--cyan:#00e5ff;--purple:#7c3aed;
+  --green:#00ff88;--cyan:#00e5ff;--purple:#7c3aed;--pink:#ff006e;
   --text:#e2e8f0;--dim:#6a7490;--border:rgba(255,255,255,0.06);
-  --card:rgba(13,17,32,0.8);
+  --card:rgba(13,17,32,0.85);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none;padding-bottom:60px;}
-/* CURSOR */
-#cur{position:fixed;width:10px;height:10px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .2s;}
-#cur2{position:fixed;width:30px;height:30px;border:1px solid rgba(0,255,136,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease;}
-/* CANVAS */
+
+/* ── CUSTOM CURSOR ── */
+#cur{position:fixed;width:8px;height:8px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .2s;mix-blend-mode:difference;}
+#cur2{position:fixed;width:36px;height:36px;border:1.5px solid rgba(0,255,136,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s cubic-bezier(.23,1,.32,1);}
+#cur3{position:fixed;width:60px;height:60px;border:1px solid rgba(0,255,136,.12);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:all .3s cubic-bezier(.23,1,.32,1);}
+body:hover #cur{transform:translate(-50%,-50%) scale(1);}
+
+/* ── CANVAS ── */
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;}
-#c1{z-index:0;}#c2{z-index:1;opacity:.18;}#c3{z-index:2;opacity:.22;}#c4{z-index:3;opacity:.35;}
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.logo{font-family:'Fira Code',monospace;font-size:1rem;color:var(--green);font-weight:600;letter-spacing:.05em;}
+#c1{z-index:0;}#c2{z-index:1;opacity:.15;}#c3{z-index:2;opacity:.2;}#c4{z-index:3;opacity:.3;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:200;padding:.9rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s;}
+nav.scrolled{padding:.7rem 2.5rem;background:rgba(6,8,16,.98);box-shadow:0 4px 40px rgba(0,0,0,.4);}
+.logo{font-family:'Fira Code',monospace;font-size:1rem;color:var(--green);font-weight:600;letter-spacing:.05em;position:relative;}
+.logo::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--green);transition:width .4s;}
+.logo:hover::after{width:100%;}
 .logo span{color:var(--dim);}
-.nav-links{display:flex;gap:1.8rem;list-style:none;}
-.nav-links a{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--dim);text-decoration:none;letter-spacing:.08em;transition:color .2s;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--dim);text-decoration:none;letter-spacing:.1em;transition:color .2s;position:relative;padding-bottom:3px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--green);transition:width .3s;}
 .nav-links a:hover{color:var(--green);}
-/* SECTIONS */
-section{position:relative;z-index:10;padding:6rem 2rem;max-width:1100px;margin:0 auto;}
-/* HERO */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:5rem;max-width:100%;}
-.hero-inner{max-width:1100px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:center;}
-.hero-tag{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--green);letter-spacing:.15em;margin-bottom:1rem;}
-.hero-name{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:.5rem;}
-.hero-name span{background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-family:'Fira Code',monospace;font-size:.82rem;color:var(--dim);margin-bottom:2rem;line-height:1.6;}
-.hero-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;background:transparent;border:1px solid var(--green);color:var(--green);font-family:'Fira Code',monospace;font-size:.8rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;text-decoration:none;}
-.hero-btn:hover{background:rgba(0,255,136,.1);box-shadow:0 0 30px rgba(0,255,136,.2);}
-/* TERMINAL */
-.terminal{background:rgba(10,13,26,.9);border:1px solid rgba(0,255,136,.15);border-radius:10px;padding:1.2rem;font-family:'Fira Code',monospace;font-size:.72rem;}
-.t-bar{display:flex;gap:.4rem;margin-bottom:.8rem;}
-.t-dot{width:10px;height:10px;border-radius:50%;}
-.t-line{color:var(--dim);line-height:1.8;}
+.nav-links a:hover::after{width:100%;}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:5rem;max-width:100%;position:relative;z-index:10;}
+.hero-inner{max-width:1140px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:center;}
+.hero-eyebrow{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--green);letter-spacing:.2em;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;opacity:0;animation:fadeUp .6s .2s forwards;}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--green);}
+.hero-name{font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:900;line-height:1.05;margin-bottom:.6rem;opacity:0;animation:fadeUp .7s .4s forwards;}
+.hero-name .first{color:var(--text);}
+.hero-name .last{background:linear-gradient(135deg,var(--green) 0%,var(--cyan) 60%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-role{font-family:'Fira Code',monospace;font-size:.85rem;color:var(--dim);margin-bottom:.4rem;opacity:0;animation:fadeUp .7s .55s forwards;}
+.hero-role .typed{color:var(--cyan);}
+.hero-sub{font-size:.88rem;color:var(--dim);margin-bottom:2rem;line-height:1.7;opacity:0;animation:fadeUp .7s .65s forwards;}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .8s forwards;}
+.btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;background:var(--green);color:#060810;font-family:'Fira Code',monospace;font-size:.78rem;font-weight:700;letter-spacing:.1em;cursor:pointer;transition:all .3s;text-decoration:none;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);}
+.btn-primary:hover{background:#00cc6a;box-shadow:0 0 40px rgba(0,255,136,.35);transform:translateY(-2px);}
+.btn-secondary{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;background:transparent;border:1px solid rgba(0,229,255,.3);color:var(--cyan);font-family:'Fira Code',monospace;font-size:.78rem;letter-spacing:.1em;cursor:pointer;transition:all .3s;text-decoration:none;}
+.btn-secondary:hover{border-color:var(--cyan);background:rgba(0,229,255,.07);transform:translateY(-2px);}
+
+/* ── TERMINAL ── */
+.terminal{background:rgba(8,11,20,.95);border:1px solid rgba(0,255,136,.12);border-radius:12px;padding:1.3rem;font-family:'Fira Code',monospace;font-size:.72rem;opacity:0;animation:fadeUp .8s 1s forwards;box-shadow:0 20px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);}
+.t-bar{display:flex;gap:.45rem;margin-bottom:1rem;align-items:center;}
+.t-dot{width:11px;height:11px;border-radius:50%;}
+.t-title{font-size:.62rem;color:var(--dim);margin-left:auto;letter-spacing:.08em;}
+.t-line{color:var(--dim);line-height:2;padding:.05rem 0;}
 .t-line .g{color:var(--green);}
 .t-line .c{color:var(--cyan);}
 .t-line .w{color:#fff;}
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:3rem 0;padding:0 2rem;max-width:1100px;margin-left:auto;margin-right:auto;position:relative;z-index:10;}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;text-align:center;}
-.stat-num{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Fira Code',monospace;}
-.stat-lbl{font-size:.7rem;color:var(--dim);margin-top:.3rem;letter-spacing:.08em;}
-/* SECTION HEADERS */
-.sec-tag{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--green);letter-spacing:.15em;margin-bottom:.8rem;}
-.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.5rem;}
+.t-line .y{color:#fbbf24;}
+.cursor-blink{display:inline-block;width:8px;height:14px;background:var(--green);animation:blink .9s infinite;vertical-align:text-bottom;margin-left:2px;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* ── PHOTO ── */
+.photo-wrap{position:relative;width:280px;height:280px;margin:0 auto;opacity:0;animation:fadeIn .9s .5s forwards;}
+.photo-ring-outer{position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(from 0deg,var(--green),var(--cyan),var(--purple),var(--green));animation:spin 5s linear infinite;}
+.photo-ring-mid{position:absolute;inset:-6px;border-radius:50%;background:var(--bg);} 
+.photo-ring-inner{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(0,255,136,.15);}
+.photo-img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top center;}
+.photo-status{position:absolute;bottom:8px;right:8px;width:22px;height:22px;background:#00ff88;border-radius:50%;border:3px solid var(--bg);animation:pulse-green 2s infinite;}
+@keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.5);}70%{box-shadow:0 0 0 8px rgba(0,255,136,0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@keyframes fadeIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:3rem 2.5rem;max-width:1140px;margin:0 auto;position:relative;z-index:10;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;text-align:center;transition:border-color .3s,transform .3s;position:relative;overflow:hidden;}
+.stat::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,136,.03),transparent);opacity:0;transition:opacity .3s;}
+.stat:hover{border-color:rgba(0,255,136,.2);transform:translateY(-3px);}
+.stat:hover::before{opacity:1;}
+.stat-num{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-family:'Fira Code',monospace;line-height:1;}
+.stat-lbl{font-size:.68rem;color:var(--dim);margin-top:.5rem;letter-spacing:.1em;text-transform:uppercase;}
+
+/* ── SECTION BASE ── */
+section{position:relative;z-index:10;padding:6rem 2.5rem;max-width:1140px;margin:0 auto;}
+.sec-tag{font-family:'Fira Code',monospace;font-size:.7rem;color:var(--green);letter-spacing:.2em;margin-bottom:.8rem;display:flex;align-items:center;gap:.7rem;}
+.sec-tag::before{content:'';width:20px;height:1px;background:var(--green);}
+.sec-title{font-size:clamp(1.9rem,4vw,3rem);font-weight:900;margin-bottom:.5rem;letter-spacing:-.02em;}
 .sec-sub{color:var(--dim);font-size:.9rem;margin-bottom:3rem;}
-/* ABOUT */
+
+/* ── ABOUT ── */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
-.about-text{font-size:.95rem;line-height:1.9;color:#a0aec0;}
-.about-info{display:flex;flex-direction:column;gap:.8rem;}
-.info-row{display:flex;gap:1rem;padding:.7rem;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.82rem;}
-.info-row .lbl{color:var(--green);font-family:'Fira Code',monospace;min-width:90px;}
+.about-text{font-size:.93rem;line-height:1.9;color:#a0aec0;}
+.about-info{display:flex;flex-direction:column;gap:.6rem;}
+.info-row{display:flex;gap:1rem;padding:.75rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.82rem;transition:border-color .2s,transform .2s;}
+.info-row:hover{border-color:rgba(0,255,136,.15);transform:translateX(4px);}
+.info-row .lbl{color:var(--green);font-family:'Fira Code',monospace;min-width:85px;font-size:.75rem;}
 .info-row .val{color:var(--text);}
-/* EXPERIENCE */
-.exp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;transition:border-color .3s;}
+
+/* ── EXPERIENCE ── */
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
 .exp-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--green),var(--cyan));}
-.exp-card:hover{border-color:rgba(0,255,136,.25);}
-.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;flex-wrap:wrap;gap:.5rem;}
+.exp-card::after{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:radial-gradient(ellipse at right,rgba(0,255,136,.03),transparent 70%);pointer-events:none;}
+.exp-card:hover{border-color:rgba(0,255,136,.2);transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.3rem;flex-wrap:wrap;gap:.5rem;}
 .exp-title-name{font-size:1.15rem;font-weight:700;margin-bottom:.25rem;}
 .exp-co{color:var(--green);font-family:'Fira Code',monospace;font-size:.78rem;font-weight:600;}
-.exp-loc{color:var(--dim);font-size:.75rem;margin-top:.15rem;}
-.exp-date{font-family:'Fira Code',monospace;font-size:.72rem;padding:.35rem .8rem;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);border-radius:20px;color:var(--green);white-space:nowrap;}
+.exp-loc{color:var(--dim);font-size:.73rem;margin-top:.15rem;}
+.exp-date{font-family:'Fira Code',monospace;font-size:.7rem;padding:.35rem .9rem;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.18);border-radius:20px;color:var(--green);white-space:nowrap;}
 .exp-bullets{list-style:none;margin-bottom:1.2rem;}
-.exp-bullets li{padding:.4rem 0 .4rem 1.2rem;position:relative;color:#a0aec0;font-size:.85rem;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.03);}
-.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.7rem;top:.55rem;}
-.exp-bullets li strong{color:var(--cyan);}
-.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;}
-.tag{font-family:'Fira Code',monospace;font-size:.62rem;padding:.25rem .6rem;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:4px;color:var(--cyan);}
-/* PROJECTS */
-.proj-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;position:relative;overflow:hidden;}
-.proj-card::after{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,.08),transparent 70%);pointer-events:none;}
-.proj-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:'Fira Code',monospace;font-size:.65rem;padding:.3rem .8rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);border-radius:20px;color:#a78bfa;margin-bottom:1rem;}
-.proj-badge::before{content:'';width:6px;height:6px;background:#a78bfa;border-radius:50%;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.exp-bullets li{padding:.45rem 0 .45rem 1.4rem;position:relative;color:#a0aec0;font-size:.85rem;line-height:1.65;border-bottom:1px solid rgba(255,255,255,.025);}
+.exp-bullets li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.65rem;top:.6rem;}
+.exp-bullets li strong{color:var(--cyan);font-weight:600;}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;}
+.tag{font-family:'Fira Code',monospace;font-size:.6rem;padding:.22rem .6rem;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.1);border-radius:4px;color:var(--cyan);transition:all .2s;}
+.tag:hover{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.25);}
+
+/* ── PROJECTS ── */
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.proj-card:hover{border-color:rgba(124,58,237,.3);transform:translateY(-3px);}
+.proj-card::after{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(124,58,237,.07),transparent 65%);pointer-events:none;}
+.proj-badge{display:inline-flex;align-items:center;gap:.5rem;font-family:'Fira Code',monospace;font-size:.64rem;padding:.32rem .9rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);border-radius:20px;color:#a78bfa;margin-bottom:1rem;}
+.proj-badge-dot{width:7px;height:7px;background:#a78bfa;border-radius:50%;animation:pulse-purple 1.5s infinite;}
+@keyframes pulse-purple{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
 .proj-title{font-size:1.2rem;font-weight:700;margin-bottom:1rem;}
-/* SKILLS */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
-.skill-group{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;}
-.skill-group-name{font-family:'Fira Code',monospace;font-size:.75rem;color:var(--green);letter-spacing:.1em;margin-bottom:1rem;text-transform:uppercase;}
-.skill-item{margin-bottom:.9rem;}
-.skill-row{display:flex;justify-content:space-between;margin-bottom:.3rem;font-size:.8rem;}
-.skill-pct{color:var(--dim);font-family:'Fira Code',monospace;font-size:.72rem;}
-.skill-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
-.skill-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px;width:0;transition:width 1.2s ease;}
-/* CERTS */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
-.cert-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;display:flex;align-items:flex-start;gap:.9rem;transition:border-color .3s;}
-.cert-card:hover{border-color:rgba(0,255,136,.2);}
-.cert-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
-.cert-name{font-size:.82rem;font-weight:600;line-height:1.3;}
-.cert-org{font-family:'Fira Code',monospace;font-size:.65rem;color:var(--dim);margin-top:.2rem;}
-.cert-inprog{display:inline-block;font-family:'Fira Code',monospace;font-size:.58rem;padding:.15rem .5rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);border-radius:10px;color:#a78bfa;margin-top:.3rem;}
-/* EDUCATION */
-.edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:1.2rem;position:relative;overflow:hidden;}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1.4rem;}
+.skill-group{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem;transition:border-color .3s,transform .3s;}
+.skill-group:hover{border-color:rgba(0,255,136,.12);transform:translateY(-2px);}
+.skill-group-name{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--green);letter-spacing:.12em;margin-bottom:1.2rem;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;}
+.skill-group-name::before{content:'';width:16px;height:1px;background:var(--green);}
+.skill-item{margin-bottom:1rem;}
+.skill-row{display:flex;justify-content:space-between;margin-bottom:.35rem;font-size:.8rem;}
+.skill-pct{color:var(--green);font-family:'Fira Code',monospace;font-size:.7rem;}
+.skill-bar{height:3px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
+.skill-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:2px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+
+/* ── CERTS ── */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:1rem;}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;display:flex;align-items:flex-start;gap:1rem;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.cert-card:hover{border-color:rgba(0,255,136,.18);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.cert-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
+.cert-name{font-size:.83rem;font-weight:600;line-height:1.3;}
+.cert-org{font-family:'Fira Code',monospace;font-size:.62rem;color:var(--dim);margin-top:.2rem;}
+.cert-inprog{display:inline-block;font-family:'Fira Code',monospace;font-size:.57rem;padding:.14rem .48rem;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);border-radius:10px;color:#a78bfa;margin-top:.3rem;}
+
+/* ── EDUCATION ── */
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
 .edu-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--cyan),var(--purple));}
+.edu-card:hover{border-color:rgba(0,229,255,.2);transform:translateY(-3px);}
 .edu-degree{font-size:1.1rem;font-weight:700;margin-bottom:.3rem;}
-.edu-school{color:var(--cyan);font-family:'Fira Code',monospace;font-size:.78rem;}
-.edu-date{color:var(--dim);font-size:.75rem;margin-top:.2rem;}
-.edu-thesis{margin-top:.8rem;font-size:.82rem;color:#a0aec0;line-height:1.6;padding:.7rem;background:rgba(0,229,255,.04);border-radius:6px;border-left:2px solid var(--cyan);}
-/* FOOTER */
-footer{position:relative;z-index:10;text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);margin-bottom:60px;}
+.edu-school{color:var(--cyan);font-family:'Fira Code',monospace;font-size:.77rem;}
+.edu-date{color:var(--dim);font-size:.73rem;margin-top:.2rem;}
+.edu-thesis{margin-top:.9rem;font-size:.82rem;color:#a0aec0;line-height:1.65;padding:.8rem 1rem;background:rgba(0,229,255,.03);border-radius:8px;border-left:2px solid var(--cyan);}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:10;text-align:center;padding:3.5rem 2rem;border-top:1px solid var(--border);margin-bottom:60px;}
 footer p{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--dim);}
-footer a{color:var(--green);text-decoration:none;}
-/* PHOTO */
-.photo-wrap{position:relative;width:260px;height:260px;margin:0 auto;}
-.photo-ring{position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(var(--green),var(--cyan),var(--purple),var(--green));animation:spin 4s linear infinite;}
-.photo-ring2{position:absolute;inset:-4px;border-radius:50%;background:var(--bg);}
-.photo-img{position:relative;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--bg);}
-@keyframes spin{to{transform:rotate(360deg);}}
-/* SCROLL REVEAL */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+footer a{color:var(--green);text-decoration:none;transition:color .2s;}
+footer a:hover{color:#fff;}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);}
 .rv.show{opacity:1;transform:none;}
-/* LANG BAR */
-#lang-bar{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,8,16,0.97);border-top:1px solid rgba(0,255,136,0.2);display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.7rem 1rem;}
-#lang-bar span{font-family:'Fira Code',monospace;font-size:.65rem;color:rgba(106,116,144,0.8);letter-spacing:.1em;margin-right:.4rem;}
-.lb{font-family:'Fira Code',monospace;font-size:.75rem;font-weight:500;color:#6a7490;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);padding:.45rem 1.1rem;border-radius:6px;cursor:pointer;transition:all .2s;letter-spacing:.06em;}
-.lb:hover{color:var(--green);border-color:rgba(0,255,136,0.4);background:rgba(0,255,136,0.07);}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}
+
+/* ── LANG BAR ── */
+#lang-bar{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(6,8,16,.97);border-top:1px solid rgba(0,255,136,.15);display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.65rem 1rem;backdrop-filter:blur(10px);}
+#lang-bar span{font-family:'Fira Code',monospace;font-size:.62rem;color:rgba(106,116,144,.7);letter-spacing:.12em;margin-right:.4rem;}
+.lb{font-family:'Fira Code',monospace;font-size:.72rem;font-weight:500;color:#6a7490;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);padding:.4rem 1rem;border-radius:6px;cursor:pointer;transition:all .2s;letter-spacing:.06em;}
+.lb:hover{color:var(--green);border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.06);}
 .lb.on{color:#060810;background:var(--green);border-color:var(--green);font-weight:700;}
+
+/* ── RESPONSIVE ── */
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr;text-align:center;}
-  .photo-wrap{width:180px;height:180px;order:-1;}
-  .stats{grid-template-columns:repeat(2,1fr);}
+  .hero-eyebrow,.hero-ctas{justify-content:center;}
+  .photo-wrap{width:200px;height:200px;order:-1;}
+  .stats{grid-template-columns:repeat(2,1fr);padding:2rem 1.2rem;}
   .about-grid{grid-template-columns:1fr;}
   .nav-links{display:none;}
   #lang-bar span{display:none;}
+  section{padding:4rem 1.2rem;}
 }
 </style>
 </head>
 <body>
-<div id="cur"></div><div id="cur2"></div>
+<div id="cur"></div><div id="cur2"></div><div id="cur3"></div>
 <canvas id="c1"></canvas><canvas id="c2"></canvas><canvas id="c3"></canvas><canvas id="c4"></canvas>
 
-<nav>
+<nav id="nav">
   <div class="logo">anas<span>@</span>security<span>:~$</span></div>
   <ul class="nav-links">
     <li><a href="#about" data-i="nav_about">About</a></li>
@@ -158,52 +214,62 @@ footer a{color:var(--green);text-decoration:none;}
 <div id="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-tag rv" data-i="hero_tag">Information Security Analyst</div>
-      <h1 class="hero-name rv">Muhammad<br/><span>Anas Shaikh</span></h1>
-      <p class="hero-sub rv" data-i="hero_sub">Cybersecurity Engineer | SOC Operations &amp; Incident Response | GRC | NIS2 &amp; DORA</p>
-      <a href="#experience" class="hero-btn rv" data-i="hero_btn">View My Work</a>
-      <div class="terminal rv" style="margin-top:2rem;">
-        <div class="t-bar"><div class="t-dot" style="background:#ff5f57"></div><div class="t-dot" style="background:#febc2e"></div><div class="t-dot" style="background:#28c840"></div></div>
-        <div class="t-line"><span class="g">anas@security</span><span class="c">:~$</span> <span class="w">whoami</span></div>
-        <div class="t-line" style="margin-left:1rem;">Cybersecurity Engineer | SOC | GRC | NIS2 &amp; DORA</div>
-        <div class="t-line"><span class="g">anas@security</span><span class="c">:~$</span> <span class="w">cat location.txt</span></div>
-        <div class="t-line" style="margin-left:1rem;">Turin, Italy &#127470;&#127481; | Available to relocate</div>
-        <div class="t-line"><span class="g">anas@security</span><span class="c">:~$</span> <span class="w">cat status.txt</span></div>
-        <div class="t-line" style="margin-left:1rem;color:var(--green);">MSc Cybersecurity @ Politecnico di Torino — Dec 2026</div>
-        <div class="t-line"><span class="g">anas@security</span><span class="c">:~$</span> <span style="animation:pulse 1s infinite;display:inline-block;">&#9608;</span></div>
+      <div class="hero-eyebrow" data-i="hero_tag">Information Security Analyst</div>
+      <h1 class="hero-name"><span class="first">Muhammad<br/></span><span class="last">Anas Shaikh</span></h1>
+      <p class="hero-role"><span class="typed" id="typed"></span><span class="cursor-blink"></span></p>
+      <p class="hero-sub" data-i="hero_sub">Cybersecurity Engineer | SOC Operations &amp; Incident Response | GRC | NIS2 &amp; DORA</p>
+      <div class="hero-ctas">
+        <a href="#experience" class="btn-primary" data-i="hero_btn">View My Work &#8594;</a>
+        <a href="https://www.linkedin.com/in/muhammad-anas-shaikh-b79532220/" target="_blank" class="btn-secondary">&#128279; LinkedIn</a>
+      </div>
+      <div class="terminal" style="margin-top:2rem;">
+        <div class="t-bar">
+          <div class="t-dot" style="background:#ff5f57"></div>
+          <div class="t-dot" style="background:#febc2e"></div>
+          <div class="t-dot" style="background:#28c840"></div>
+          <span class="t-title">anas@security — bash</span>
+        </div>
+        <div class="t-line"><span class="g">anas@security</span><span style="color:#6a7490;">:</span><span class="c">~</span><span style="color:#6a7490;">$</span> <span class="w">cat profile.json</span></div>
+        <div class="t-line"><span style="color:#6a7490;">{</span></div>
+        <div class="t-line" style="padding-left:1rem;"><span class="c">"role"</span><span style="color:#6a7490;">:</span> <span class="y">"Cybersecurity Engineer"</span><span style="color:#6a7490;">,</span></div>
+        <div class="t-line" style="padding-left:1rem;"><span class="c">"location"</span><span style="color:#6a7490;">:</span> <span class="y">"Turin, Italy 🇮🇹"</span><span style="color:#6a7490;">,</span></div>
+        <div class="t-line" style="padding-left:1rem;"><span class="c">"focus"</span><span style="color:#6a7490;">:</span> <span class="y">"SOC | GRC | NIS2 &amp; DORA"</span><span style="color:#6a7490;">,</span></div>
+        <div class="t-line" style="padding-left:1rem;"><span class="c">"status"</span><span style="color:#6a7490;">:</span> <span class="g">"Available to Relocate 🟢"</span></div>
+        <div class="t-line"><span style="color:#6a7490;">}</span></div>
+        <div class="t-line" style="margin-top:.3rem;"><span class="g">anas@security</span><span style="color:#6a7490;">:</span><span class="c">~</span><span style="color:#6a7490;">$</span> <span class="cursor-blink"></span></div>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
-      <div class="photo-wrap rv">
-        <div class="photo-ring"></div><div class="photo-ring2"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1.8rem;">
+      <div class="photo-wrap">
+        <div class="photo-ring-outer"></div>
+        <div class="photo-ring-mid"></div>
+        <div class="photo-ring-inner"></div>
         <img class="photo-img" src="data:image/jpeg;base64,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" alt="Muhammad Anas Shaikh"/>
+        <div class="photo-status"></div>
       </div>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;">
-        <a href="https://www.linkedin.com/in/muhammad-anas-shaikh-b79532220/" target="_blank" style="font-family:'Fira Code',monospace;font-size:.7rem;padding:.5rem 1rem;border:1px solid rgba(0,229,255,.2);border-radius:6px;color:var(--cyan);text-decoration:none;transition:all .2s;" onmouseover="this.style.background='rgba(0,229,255,.08)'" onmouseout="this.style.background='transparent'">&#128279; LinkedIn</a>
-        <a href="https://drive.google.com/drive/u/1/folders/1fg0scOx14tk5p7YqWgnQftVeHXDoMIyN" target="_blank" style="font-family:'Fira Code',monospace;font-size:.7rem;padding:.5rem 1rem;border:1px solid rgba(0,255,136,.2);border-radius:6px;color:var(--green);text-decoration:none;transition:all .2s;" onmouseover="this.style.background='rgba(0,255,136,.08)'" onmouseout="this.style.background='transparent'">&#128196; Certificates</a>
-      </div>
+      <a href="https://drive.google.com/drive/u/1/folders/1fg0scOx14tk5p7YqWgnQftVeHXDoMIyN" target="_blank" class="btn-secondary" style="font-size:.7rem;padding:.5rem 1.2rem;">&#128196; View Certificates</a>
     </div>
   </div>
 </div>
 
-<div class="stats">
-  <div class="stat rv"><div class="stat-num" data-count="2">0</div><div class="stat-lbl" data-i="stat_yrs">Years Experience</div></div>
-  <div class="stat rv"><div class="stat-num" data-count="15">0</div><div class="stat-lbl" data-i="stat_tools">Security Tools</div></div>
-  <div class="stat rv"><div class="stat-num" data-count="40" data-suffix="%">0</div><div class="stat-lbl" data-i="stat_vis">SIEM Visibility Boost</div></div>
-  <div class="stat rv"><div class="stat-num" data-count="99" data-suffix="%">0</div><div class="stat-lbl" data-i="stat_up">SOC Uptime</div></div>
+<div class="stats" id="stats-section">
+  <div class="stat rv"><div class="stat-num" data-count="2" data-suffix="+">0+</div><div class="stat-lbl" data-i="stat_yrs">Years Experience</div></div>
+  <div class="stat rv d1"><div class="stat-num" data-count="15" data-suffix="+">0+</div><div class="stat-lbl" data-i="stat_tools">Security Tools</div></div>
+  <div class="stat rv d2"><div class="stat-num" data-count="40" data-suffix="%">0%</div><div class="stat-lbl" data-i="stat_vis">SIEM Visibility Boost</div></div>
+  <div class="stat rv d3"><div class="stat-num" data-count="99" data-suffix="%">0%</div><div class="stat-lbl" data-i="stat_up">SOC Uptime</div></div>
 </div>
 
 <section id="about">
   <div class="sec-tag rv" data-i="about_tag">// about_me</div>
   <h2 class="sec-title rv" data-i="about_title">Who I Am</h2>
-  <div class="about-grid rv">
-    <p class="about-text" data-i="about_desc">Cybersecurity engineer with 2+ years in a regulated fintech environment combining 24×7 SOC operations with governance, risk and compliance. Completing an MSc in Cybersecurity at Politecnico di Torino (December 2026). ISO/IEC 27001 Lead Auditor and CompTIA CySA+ certified. Available to relocate.</p>
-    <div class="about-info">
+  <div class="about-grid">
+    <p class="about-text rv" data-i="about_desc">Cybersecurity engineer with 2+ years in a regulated fintech environment combining 24×7 SOC operations with governance, risk and compliance. Completing an MSc in Cybersecurity at Politecnico di Torino (December 2026). ISO/IEC 27001 Lead Auditor and CompTIA CySA+ certified. Available to relocate.</p>
+    <div class="about-info rv d1">
       <div class="info-row"><span class="lbl">Location</span><span class="val">Turin, Italy &#127470;&#127481;</span></div>
       <div class="info-row"><span class="lbl">Email</span><span class="val">anusshaikh124@gmail.com</span></div>
       <div class="info-row"><span class="lbl">Phone</span><span class="val">(+39) 327 697 4639</span></div>
       <div class="info-row"><span class="lbl">Status</span><span class="val" style="color:var(--green);">Job Seeking &#128994;</span></div>
-      <div class="info-row"><span class="lbl">Permit</span><span class="val">Job Seeking Residence Permit (Italy)</span></div>
+      <div class="info-row"><span class="lbl">Permit</span><span class="val">Job Seeking Residence (Italy)</span></div>
       <div class="info-row"><span class="lbl">English</span><span class="val">C1 Professional</span></div>
     </div>
   </div>
@@ -227,12 +293,12 @@ footer a{color:var(--green);text-decoration:none;}
       <li data-i="job1_b2">Deployed and tuned Wazuh SIEM with custom detection rules (<strong>+40% visibility</strong>, <strong>20–30% fewer false positives</strong>), wrote and maintained SOC playbooks.</li>
       <li data-i="job1_b3">Supported incident response from detection to containment and remediation, including phishing and suspicious file analysis documented in ServiceNow.</li>
       <li data-i="job1_b4">Supported ISO 27001 ISMS: assessed controls through gap analysis, updated policies, standards and procedures with RACI matrices.</li>
-      <li data-i="job1_b5">Carried out risk assessments and BIA, maintained risk register, prioritised remediation — <strong>100% of critical vulnerabilities remediated</strong>.</li>
-      <li data-i="job1_b6">Supported internal audits and compliance, reported KPIs and KRIs to management, maintained <strong>100% access control compliance</strong> across IAM/PAM.</li>
+      <li data-i="job1_b5">Carried out risk assessments and BIA, maintained risk register — <strong>100% of critical vulnerabilities remediated</strong>.</li>
+      <li data-i="job1_b6">Supported internal audits, reported KPIs and KRIs to management, maintained <strong>100% access control compliance</strong> across IAM/PAM.</li>
     </ul>
     <div class="tags"><span class="tag">Wazuh SIEM</span><span class="tag">LogRhythm</span><span class="tag">Splunk</span><span class="tag">MS Sentinel</span><span class="tag">Kaspersky EDR</span><span class="tag">Nessus</span><span class="tag">ISO 27001</span><span class="tag">ServiceNow</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">Immuniweb</span><span class="tag">Delinea PAM</span><span class="tag">Cloudflare WAF</span></div>
   </div>
-  <div class="exp-card rv">
+  <div class="exp-card rv d1">
     <div class="exp-header">
       <div>
         <div class="exp-title-name" data-i="job2_title">Assistant Manager, NOC</div>
@@ -242,10 +308,10 @@ footer a{color:var(--green);text-decoration:none;}
       <div class="exp-date" data-i="job2_date">Jun 2022 — Mar 2023</div>
     </div>
     <ul class="exp-bullets">
-      <li data-i="job2_b1">Led a team of three monitoring 26 branches and a data centre across 40,000+ nodes, analysing logs and traffic.</li>
+      <li data-i="job2_b1">Led a team of three monitoring 26 branches and a data centre across <strong>40,000+ nodes</strong>, analysing logs and traffic.</li>
       <li data-i="job2_b2">Sustained over <strong>99% uptime</strong> through proactive SolarWinds NPM/NTA monitoring and Sophos Firewall management.</li>
     </ul>
-    <div class="tags"><span class="tag">SolarWinds NPM</span><span class="tag">SolarWinds NTA</span><span class="tag">Sophos Firewall</span><span class="tag">Kiwi Syslog</span><span class="tag">IRIS Software</span><span class="tag">NOC</span></div>
+    <div class="tags"><span class="tag">SolarWinds NPM</span><span class="tag">SolarWinds NTA</span><span class="tag">Sophos Firewall</span><span class="tag">Kiwi Syslog</span><span class="tag">NOC Operations</span></div>
   </div>
 </section>
 
@@ -254,7 +320,7 @@ footer a{color:var(--green);text-decoration:none;}
   <h2 class="sec-title rv" data-i="proj_title">What I'm Building</h2>
   <p class="sec-sub rv" data-i="proj_sub">Active research &amp; development.</p>
   <div class="proj-card rv">
-    <div class="proj-badge" data-i="thesis_status">In Progress — Expected Dec 2026</div>
+    <div class="proj-badge"><div class="proj-badge-dot"></div><span data-i="thesis_status">In Progress — Expected Dec 2026</span></div>
     <div class="proj-title" data-i="thesis_title">MSc Thesis — NIS2 &amp; DORA Risk-Adjusted Compliance Model</div>
     <ul class="exp-bullets">
       <li data-i="thesis_b1">Technical analysis of cybersecurity risk management obligations under Article 21 of the NIS2 Directive.</li>
@@ -268,37 +334,32 @@ footer a{color:var(--green);text-decoration:none;}
 <section id="skills">
   <div class="sec-tag rv" data-i="skills_tag">// skill_set</div>
   <h2 class="sec-title rv" data-i="skills_title">What I Work With</h2>
-  <div class="skills-grid rv">
-    <div class="skill-group">
-      <div class="skill-group-name" data-i="sg1">SOC &amp; Detection</div>
+  <div class="skills-grid">
+    <div class="skill-group rv"><div class="skill-group-name" data-i="sg1">SOC &amp; Detection</div>
       <div class="skill-item"><div class="skill-row"><span>Wazuh / LogRhythm / Splunk</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Microsoft Sentinel</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>MITRE ATT&amp;CK / Threat Hunting</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Alert Triage &amp; Log Analysis</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-name" data-i="sg2">Incident Response</div>
+    <div class="skill-group rv d1"><div class="skill-group-name" data-i="sg2">Incident Response</div>
       <div class="skill-item"><div class="skill-row"><span>IR Lifecycle (D2R)</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Phishing &amp; Malware Analysis</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>ServiceNow / Jira</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>IOC Enrichment &amp; Threat Intel</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-name" data-i="sg3">GRC &amp; Compliance</div>
+    <div class="skill-group rv d2"><div class="skill-group-name" data-i="sg3">GRC &amp; Compliance</div>
       <div class="skill-item"><div class="skill-row"><span>ISO/IEC 27001 ISMS</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>NIS2 / DORA / GDPR</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>NIST CSF 2.0 / CIS Controls</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Gap Analysis &amp; Auditing</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-name" data-i="sg4">Risk Management</div>
+    <div class="skill-group rv"><div class="skill-group-name" data-i="sg4">Risk Management</div>
       <div class="skill-item"><div class="skill-row"><span>Cyber Risk Assessment &amp; BIA</span><span class="skill-pct">87%</span></div><div class="skill-bar"><div class="skill-fill" data-w="87"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Risk Register &amp; KRI Reporting</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Third-Party &amp; Supplier Risk</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" data-w="78"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Control Assessment &amp; RACI</span><span class="skill-pct">83%</span></div><div class="skill-bar"><div class="skill-fill" data-w="83"></div></div></div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-name" data-i="sg5">Security Engineering</div>
+    <div class="skill-group rv d1"><div class="skill-group-name" data-i="sg5">Security Engineering</div>
       <div class="skill-item"><div class="skill-row"><span>EDR (SentinelOne / Defender)</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" data-w="82"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Vulnerability Management</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
       <div class="skill-item"><div class="skill-row"><span>Azure / AWS / M365</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div></div>
@@ -317,7 +378,7 @@ footer a{color:var(--green);text-decoration:none;}
     <div class="cert-card"><div class="cert-icon" style="background:rgba(124,58,237,.08);">&#128274;</div><div><div class="cert-name">ISC2 CC</div><div class="cert-org">ISC2</div></div></div>
     <div class="cert-card"><div class="cert-icon" style="background:rgba(0,255,136,.08);">&#128202;</div><div><div class="cert-name">Splunk SOC &amp; Defense Analyst</div><div class="cert-org">Splunk</div></div></div>
     <div class="cert-card"><div class="cert-icon" style="background:rgba(0,229,255,.08);">&#127931;</div><div><div class="cert-name">TryHackMe SAL1</div><div class="cert-org">TryHackMe</div></div></div>
-    <div class="cert-card"><div class="cert-icon" style="background:rgba(124,58,237,.08);">&#128736;</div><div><div class="cert-name">Blue Team Junior Analyst (BTJA)</div><div class="cert-org">Security Blue Team</div></div></div>
+    <div class="cert-card"><div class="cert-icon" style="background:rgba(124,58,237,.08);">&#128736;</div><div><div class="cert-name">Blue Team Junior Analyst</div><div class="cert-org">Security Blue Team</div></div></div>
     <div class="cert-card"><div class="cert-icon" style="background:rgba(0,255,136,.08);">&#9876;</div><div><div class="cert-name">CWL C3SA</div><div class="cert-org">Cyberwoxlabs</div></div></div>
     <div class="cert-card"><div class="cert-icon" style="background:rgba(0,229,255,.08);">&#127794;</div><div><div class="cert-name">CWL Purple Team Fundamentals</div><div class="cert-org">Cyberwoxlabs</div></div></div>
     <div class="cert-card"><div class="cert-icon" style="background:rgba(255,165,0,.08);">&#9729;</div><div><div class="cert-name">Oracle OCI AI Foundations</div><div class="cert-org">Oracle</div></div></div>
@@ -333,202 +394,187 @@ footer a{color:var(--green);text-decoration:none;}
   <p class="sec-sub rv" data-i="edu_sub">Foundations built through rigorous study.</p>
   <div class="edu-card rv">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;">
-      <div>
-        <div class="edu-degree" data-i="deg1">MSc Cybersecurity</div>
-        <div class="edu-school">Politecnico di Torino — Turin, Italy</div>
-        <div class="edu-date">Sep 2024 — <span data-i="present">PRESENT</span></div>
-      </div>
-      <div class="exp-date" style="border-color:rgba(0,229,255,.2);color:var(--cyan);background:rgba(0,229,255,.08);">Dec 2026</div>
+      <div><div class="edu-degree" data-i="deg1">MSc Cybersecurity</div><div class="edu-school">Politecnico di Torino — Turin, Italy</div><div class="edu-date">Sep 2024 — <span data-i="present">PRESENT</span></div></div>
+      <div class="exp-date" style="border-color:rgba(0,229,255,.2);color:var(--cyan);background:rgba(0,229,255,.07);">Dec 2026</div>
     </div>
     <div class="edu-thesis">Thesis: Cybersecurity risk management obligations under Article 21 of the NIS2 Directive — comparative analysis of NIS2 and DORA with a risk-adjusted compliance scoring model mapped to ISO 27001, NIST CSF 2.0, MITRE ATT&amp;CK and D3FEND.</div>
   </div>
-  <div class="edu-card rv">
+  <div class="edu-card rv d1">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;">
-      <div>
-        <div class="edu-degree" data-i="deg2">BE Telecommunication Engineering</div>
-        <div class="edu-school">NED University of Engineering &amp; Technology — Karachi, Pakistan</div>
-        <div class="edu-date">2017 — 2021</div>
-      </div>
-      <div class="exp-date" style="border-color:rgba(0,229,255,.2);color:var(--cyan);background:rgba(0,229,255,.08);">CGPA 3.04</div>
+      <div><div class="edu-degree" data-i="deg2">BE Telecommunication Engineering</div><div class="edu-school">NED University of Engineering &amp; Technology — Karachi, Pakistan</div><div class="edu-date">2017 — 2021</div></div>
+      <div class="exp-date" style="border-color:rgba(0,229,255,.2);color:var(--cyan);background:rgba(0,229,255,.07);">CGPA 3.04</div>
     </div>
   </div>
 </section>
 
 <footer>
   <p>&#128737;&#65039; Muhammad Anas Shaikh &mdash; Cybersecurity Engineer &mdash; Turin, Italy</p>
-  <p style="margin-top:.5rem;"><a href="mailto:anusshaikh124@gmail.com">anusshaikh124@gmail.com</a> &nbsp;|&nbsp; <a href="https://www.linkedin.com/in/muhammad-anas-shaikh-b79532220/" target="_blank">LinkedIn</a> &nbsp;|&nbsp; <a href="https://drive.google.com/drive/u/1/folders/1fg0scOx14tk5p7YqWgnQftVeHXDoMIyN" target="_blank">Certificates</a></p>
+  <p style="margin-top:.6rem;"><a href="mailto:anusshaikh124@gmail.com">anusshaikh124@gmail.com</a> &nbsp;&bull;&nbsp; <a href="https://www.linkedin.com/in/muhammad-anas-shaikh-b79532220/" target="_blank">LinkedIn</a> &nbsp;&bull;&nbsp; <a href="https://drive.google.com/drive/u/1/folders/1fg0scOx14tk5p7YqWgnQftVeHXDoMIyN" target="_blank">Certificates</a></p>
 </footer>
 
 <div id="lang-bar">
   <span>&#127760; LANGUAGE:</span>
-  <button class="lb on" onclick="setLang('en')">EN &nbsp;English</button>
-  <button class="lb" onclick="setLang('it')">IT &nbsp;Italiano</button>
-  <button class="lb" onclick="setLang('de')">DE &nbsp;Deutsch</button>
-  <button class="lb" onclick="setLang('nl')">NL &nbsp;Nederlands</button>
+  <button class="lb on"  onclick="setLang('en')">EN &nbsp;English</button>
+  <button class="lb"     onclick="setLang('it')">IT &nbsp;Italiano</button>
+  <button class="lb"     onclick="setLang('de')">DE &nbsp;Deutsch</button>
+  <button class="lb"     onclick="setLang('nl')">NL &nbsp;Nederlands</button>
 </div>
 
 <script>
 var T={"en": {"nav_about": "About", "nav_exp": "Experience", "nav_proj": "Projects", "nav_skills": "Skills", "nav_certs": "Certifications", "nav_edu": "Education", "hero_tag": "Information Security Analyst", "hero_sub": "Cybersecurity Engineer | SOC Operations & Incident Response | GRC | NIS2 & DORA", "hero_btn": "View My Work", "stat_yrs": "Years Experience", "stat_tools": "Security Tools", "stat_vis": "SIEM Visibility Boost", "stat_up": "SOC Uptime", "about_tag": "// about_me", "about_title": "Who I Am", "about_desc": "Cybersecurity engineer with 2+ years in a regulated fintech environment combining 24×7 SOC operations with governance, risk and compliance. Completing an MSc in Cybersecurity at Politecnico di Torino (December 2026). ISO/IEC 27001 Lead Auditor and CompTIA CySA+ certified. Available to relocate.", "exp_tag": "// work_experience", "exp_title": "Where I've Worked", "exp_sub": "Building security from the ground up.", "job1_title": "Information Security Analyst", "job1_co": "WEMSOL PVT LTD", "job1_loc": "Karachi, Pakistan", "job1_date": "Mar 2023 — Nov 2024", "job1_b1": "Monitored SIEM in a 24×7 environment, triaged alerts, investigated suspicious activity and escalated confirmed incidents.", "job1_b2": "Deployed and tuned Wazuh SIEM with custom detection rules (+40% visibility, 20–30% fewer false positives), wrote and maintained SOC playbooks.", "job1_b3": "Supported incident response from detection to containment and remediation, including phishing and suspicious file analysis documented in ServiceNow.", "job1_b4": "Supported ISO 27001 ISMS: assessed controls through gap analysis, updated policies, standards and procedures with RACI matrices.", "job1_b5": "Carried out risk assessments and BIA, maintained risk register, prioritised remediation — 100% of critical vulnerabilities remediated.", "job1_b6": "Supported internal audits and compliance, reported KPIs and KRIs to management, maintained 100% access control compliance across IAM/PAM.", "job2_title": "Assistant Manager, NOC", "job2_co": "NIFTePAY", "job2_loc": "Karachi, Pakistan", "job2_date": "Jun 2022 — Mar 2023", "job2_b1": "Led a team of three monitoring 26 branches and a data centre across 40,000+ nodes, analysing logs and traffic.", "job2_b2": "Sustained over 99% uptime through proactive SolarWinds NPM/NTA monitoring and Sophos Firewall management.", "proj_tag": "// projects", "proj_title": "What I'm Building", "proj_sub": "Active research & development.", "thesis_title": "MSc Thesis — NIS2 & DORA Risk-Adjusted Compliance Model", "thesis_b1": "Technical analysis of cybersecurity risk management obligations under Article 21 of the NIS2 Directive.", "thesis_b2": "Comparative analysis of NIS2 and DORA obligations for financial entities.", "thesis_b3": "Designed a risk-adjusted compliance scoring model mapped to ISO 27001, NIST CSF 2.0, MITRE ATT&CK and D3FEND.", "thesis_status": "In Progress — Expected Dec 2026", "skills_tag": "// skill_set", "skills_title": "What I Work With", "sg1": "SOC & Detection", "sg2": "Incident Response", "sg3": "GRC & Compliance", "sg4": "Risk Management", "sg5": "Security Engineering", "certs_tag": "// certifications", "certs_title": "My Credentials", "certs_sub": "Verified expertise across security domains.", "cert_inprog": "In Progress", "edu_tag": "// education", "edu_title": "Academic Background", "edu_sub": "Foundations built through rigorous study.", "deg1": "MSc Cybersecurity", "deg2": "BE Telecommunication Engineering", "present": "PRESENT"}, "it": {"nav_about": "Chi Sono", "nav_exp": "Esperienza", "nav_proj": "Progetti", "nav_skills": "Competenze", "nav_certs": "Certificazioni", "nav_edu": "Formazione", "hero_tag": "Analista di Sicurezza Informatica", "hero_sub": "Ingegnere Cybersecurity | SOC | GRC | NIS2 e DORA", "hero_btn": "Vedi il Mio Lavoro", "stat_yrs": "Anni di Esperienza", "stat_tools": "Strumenti di Sicurezza", "stat_vis": "Aumento Visibilità SIEM", "stat_up": "Uptime SOC", "about_tag": "// su_di_me", "about_title": "Chi Sono", "about_desc": "Ingegnere della sicurezza informatica con oltre 2 anni in ambienti fintech regolamentati, combinando operazioni SOC 24×7 con governance, rischio e conformità. In completamento MSc Cybersecurity al Politecnico di Torino (dicembre 2026). Certificato ISO/IEC 27001 Lead Auditor e CompTIA CySA+. Disponibile a trasferirsi.", "exp_tag": "// esperienza_lavorativa", "exp_title": "Dove Ho Lavorato", "exp_sub": "Costruire sicurezza dalle fondamenta.", "job1_title": "Analista di Sicurezza Informatica", "job1_co": "WEMSOL PVT LTD", "job1_loc": "Karachi, Pakistan", "job1_date": "Mar 2023 — Nov 2024", "job1_b1": "Monitoraggio SIEM in ambiente 24×7, triage degli alert, indagine su attività sospette ed escalation degli incidenti confermati.", "job1_b2": "Deployment e tuning di Wazuh SIEM con regole di rilevamento personalizzate (+40% visibilità, 20-30% meno falsi positivi), scrittura di playbook SOC.", "job1_b3": "Supporto alla risposta agli incidenti dal rilevamento alla remediation, inclusa analisi di phishing e file sospetti documentata in ServiceNow.", "job1_b4": "Supporto ISMS ISO 27001: valutazione dei controlli tramite gap analysis, aggiornamento di politiche e procedure con matrici RACI.", "job1_b5": "Esecuzione di risk assessment e BIA, gestione del registro dei rischi — 100% delle vulnerabilità critiche remediate.", "job1_b6": "Supporto ad audit interni, reportistica KPI e KRI al management, 100% conformità controllo accessi IAM/PAM.", "job2_title": "Assistant Manager, NOC", "job2_co": "NIFTePAY", "job2_loc": "Karachi, Pakistan", "job2_date": "Giu 2022 — Mar 2023", "job2_b1": "Guidato un team di tre persone nel monitoraggio di 26 filiali e un data center con oltre 40.000 nodi.", "job2_b2": "Mantenuto uptime superiore al 99% tramite monitoraggio proattivo SolarWinds NPM/NTA e gestione Sophos Firewall.", "proj_tag": "// progetti", "proj_title": "Cosa Sto Costruendo", "proj_sub": "Ricerca e sviluppo attivo.", "thesis_title": "Tesi MSc — Modello di Conformita NIS2 e DORA Basato sul Rischio", "thesis_b1": "Analisi tecnica degli obblighi di gestione del rischio cyber ai sensi dell'Articolo 21 della Direttiva NIS2.", "thesis_b2": "Analisi comparativa degli obblighi NIS2 e DORA per gli enti finanziari.", "thesis_b3": "Modello di scoring della conformita basato sul rischio mappato su ISO 27001, NIST CSF 2.0, MITRE ATT&CK e D3FEND.", "thesis_status": "In Corso — Previsto Dic 2026", "skills_tag": "// competenze", "skills_title": "Con Cosa Lavoro", "sg1": "SOC e Rilevamento", "sg2": "Risposta agli Incidenti", "sg3": "GRC e Conformita", "sg4": "Gestione del Rischio", "sg5": "Ingegneria della Sicurezza", "certs_tag": "// certificazioni", "certs_title": "Le Mie Credenziali", "certs_sub": "Competenze verificate nei domini della sicurezza.", "cert_inprog": "In Corso", "edu_tag": "// formazione", "edu_title": "Percorso Accademico", "edu_sub": "Basi costruite attraverso uno studio rigoroso.", "deg1": "MSc Cybersecurity", "deg2": "BE Ingegneria delle Telecomunicazioni", "present": "PRESENTE"}, "de": {"nav_about": "Uber Mich", "nav_exp": "Erfahrung", "nav_proj": "Projekte", "nav_skills": "Fahigkeiten", "nav_certs": "Zertifikate", "nav_edu": "Ausbildung", "hero_tag": "Informationssicherheitsanalyst", "hero_sub": "Cybersecurity-Ingenieur | SOC-Betrieb | GRC | NIS2 und DORA", "hero_btn": "Meine Arbeit Ansehen", "stat_yrs": "Jahre Erfahrung", "stat_tools": "Sicherheits-Tools", "stat_vis": "SIEM-Sichtbarkeit", "stat_up": "SOC-Verfugbarkeit", "about_tag": "// uber_mich", "about_title": "Wer Ich Bin", "about_desc": "Cybersecurity-Ingenieur mit uber 2 Jahren in einem regulierten Fintech-Umfeld, der 24x7-SOC-Betrieb mit Governance, Risiko und Compliance kombiniert. MSc Cybersecurity am Politecnico di Torino (Dezember 2026). ISO/IEC 27001 Lead Auditor und CompTIA CySA+ zertifiziert. Umzugsbereit.", "exp_tag": "// berufserfahrung", "exp_title": "Wo Ich Gearbeitet Habe", "exp_sub": "Sicherheit von Grund auf aufbauen.", "job1_title": "Informationssicherheitsanalyst", "job1_co": "WEMSOL PVT LTD", "job1_loc": "Karachi, Pakistan", "job1_date": "Mrz 2023 — Nov 2024", "job1_b1": "SIEM-Uberwachung in einer 24x7-Umgebung, Alert-Triage, Untersuchung verdachtiger Aktivitaten und Eskalation bestatigter Vorfalle.", "job1_b2": "Wazuh SIEM mit benutzerdefinierten Erkennungsregeln bereitgestellt und optimiert (+40% Sichtbarkeit, 20-30% weniger Fehlalarme), SOC-Playbooks erstellt.", "job1_b3": "Unterstutzung der Incident Response von der Erkennung bis zur Behebung, einschliesslich Phishing-Analyse, dokumentiert in ServiceNow.", "job1_b4": "ISO 27001 ISMS-Unterstutzung: Kontrollen durch Gap-Analyse bewertet, Richtlinien und Verfahren mit RACI-Matrizen aktualisiert.", "job1_b5": "Risikoabschatzungen und BIA durchgefuhrt, Risikoregister gepflegt — 100% der kritischen Schwachstellen behoben.", "job1_b6": "Interne Audits und Compliance unterstutzt, KPIs und KRIs an das Management gemeldet, 100% Zugangskontrolle IAM/PAM.", "job2_title": "Assistant Manager, NOC", "job2_co": "NIFTePAY", "job2_loc": "Karachi, Pakistan", "job2_date": "Jun 2022 — Mrz 2023", "job2_b1": "Fuhrung eines 3-kopfigen Teams bei der Uberwachung von 26 Filialen und einem Rechenzentrum mit uber 40.000 Knoten.", "job2_b2": "Uber 99% Verfugbarkeit durch proaktives SolarWinds NPM/NTA-Monitoring und Sophos Firewall-Management aufrechterhalten.", "proj_tag": "// projekte", "proj_title": "Was Ich Baue", "proj_sub": "Aktive Forschung und Entwicklung.", "thesis_title": "MSc Abschlussarbeit — NIS2 & DORA Risikobasiertes Compliance-Modell", "thesis_b1": "Technische Analyse der Cybersicherheits-Risikomanagementpflichten nach Artikel 21 der NIS2-Richtlinie.", "thesis_b2": "Vergleichende Analyse der NIS2- und DORA-Pflichten fur Finanzunternehmen.", "thesis_b3": "Risikobasiertes Compliance-Scoring-Modell entwickelt, gemappt auf ISO 27001, NIST CSF 2.0, MITRE ATT&CK und D3FEND.", "thesis_status": "In Bearbeitung — Erwartet Dez 2026", "skills_tag": "// fahigkeiten", "skills_title": "Womit Ich Arbeite", "sg1": "SOC & Erkennung", "sg2": "Incident Response", "sg3": "GRC & Compliance", "sg4": "Risikomanagement", "sg5": "Sicherheitstechnik", "certs_tag": "// zertifikate", "certs_title": "Meine Qualifikationen", "certs_sub": "Nachgewiesene Expertise in Sicherheitsdomanen.", "cert_inprog": "In Bearbeitung", "edu_tag": "// ausbildung", "edu_title": "Akademischer Hintergrund", "edu_sub": "Grundlagen durch strenges Studium gelegt.", "deg1": "MSc Cybersecurity", "deg2": "BE Telekommunikationstechnik", "present": "AKTUELL"}, "nl": {"nav_about": "Over Mij", "nav_exp": "Ervaring", "nav_proj": "Projecten", "nav_skills": "Vaardigheden", "nav_certs": "Certificaten", "nav_edu": "Opleiding", "hero_tag": "Informatiebeveiligingsanalist", "hero_sub": "Cybersecurity Engineer | SOC-operaties | GRC | NIS2 en DORA", "hero_btn": "Bekijk Mijn Werk", "stat_yrs": "Jaar Ervaring", "stat_tools": "Beveiligingstools", "stat_vis": "SIEM Zichtbaarheid", "stat_up": "SOC Uptime", "about_tag": "// over_mij", "about_title": "Wie Ik Ben", "about_desc": "Cybersecurity-ingenieur met meer dan 2 jaar in een gereguleerde fintech-omgeving, waarbij 24x7 SOC-operaties worden gecombineerd met governance, risico en compliance. MSc Cybersecurity aan Politecnico di Torino (december 2026). ISO/IEC 27001 Lead Auditor en CompTIA CySA+ gecertificeerd. Bereid te verhuizen.", "exp_tag": "// werkervaring", "exp_title": "Waar Ik Heb Gewerkt", "exp_sub": "Beveiliging van de grond af opbouwen.", "job1_title": "Informatiebeveiligingsanalist", "job1_co": "WEMSOL PVT LTD", "job1_loc": "Karachi, Pakistan", "job1_date": "Mrt 2023 — Nov 2024", "job1_b1": "SIEM-bewaking in een 24x7-omgeving, alert-triage, onderzoek naar verdachte activiteiten en escalatie van bevestigde incidenten.", "job1_b2": "Wazuh SIEM geimplementeerd en afgestemd met aangepaste detectieregels (+40% zichtbaarheid, 20-30% minder valse positieven), SOC-playbooks geschreven.", "job1_b3": "Incidentrespons ondersteund van detectie tot herstel, inclusief phishing-analyse, gedocumenteerd in ServiceNow.", "job1_b4": "ISO 27001 ISMS-ondersteuning: controles beoordeeld via gap-analyse, beleid en procedures bijgewerkt met RACI-matrices.", "job1_b5": "Risicobeoordelingen en BIA uitgevoerd, risicoregister bijgehouden — 100% van kritieke kwetsbaarheden verholpen.", "job1_b6": "Interne audits en compliance ondersteund, KPI's en KRI's gerapporteerd aan management, 100% toegangscontrole IAM/PAM.", "job2_title": "Assistent Manager, NOC", "job2_co": "NIFTePAY", "job2_loc": "Karachi, Pakistan", "job2_date": "Jun 2022 — Mrt 2023", "job2_b1": "Een team van drie geleid bij het bewaken van 26 filialen en een datacenter met meer dan 40.000 knooppunten.", "job2_b2": "Meer dan 99% uptime gehandhaafd via proactieve SolarWinds NPM/NTA-bewaking en Sophos Firewall-beheer.", "proj_tag": "// projecten", "proj_title": "Wat Ik Bouw", "proj_sub": "Actief onderzoek en ontwikkeling.", "thesis_title": "MSc Thesis — NIS2 & DORA Risicogebaseerd Compliance Model", "thesis_b1": "Technische analyse van cybersecurity risicobeheerverplichtingen onder Artikel 21 van de NIS2-Richtlijn.", "thesis_b2": "Vergelijkende analyse van NIS2- en DORA-verplichtingen voor financiele entiteiten.", "thesis_b3": "Risicogebaseerd compliance-scoringsmodel ontworpen, gekoppeld aan ISO 27001, NIST CSF 2.0, MITRE ATT&CK en D3FEND.", "thesis_status": "In Uitvoering — Verwacht Dec 2026", "skills_tag": "// vaardigheden", "skills_title": "Waarmee Ik Werk", "sg1": "SOC & Detectie", "sg2": "Incidentrespons", "sg3": "GRC & Compliance", "sg4": "Risicobeheer", "sg5": "Beveiligingstechniek", "certs_tag": "// certificaten", "certs_title": "Mijn Referenties", "certs_sub": "Geverifieerde expertise in beveiligingsdomeinen.", "cert_inprog": "In Uitvoering", "edu_tag": "// opleiding", "edu_title": "Academische Achtergrond", "edu_sub": "Fundament gelegd door rigoureuze studie.", "deg1": "MSc Cybersecurity", "deg2": "BE Telecommunicatietechnologie", "present": "HEDEN"}};
 var lang='en';
 function setLang(l){
-  lang=l;
-  var t=T[l];
+  lang=l;var t=T[l];
   document.querySelectorAll('[data-i]').forEach(function(el){
     var k=el.getAttribute('data-i');
     if(t[k]!==undefined) el.textContent=t[k];
   });
   document.querySelectorAll('.lb').forEach(function(b){
-    var txt=b.textContent.trim().substring(0,2).toLowerCase();
-    b.classList.toggle('on',txt===l);
+    b.classList.toggle('on',b.textContent.trim().substring(0,2).toLowerCase()===l);
   });
 }
+// TYPED EFFECT
+var roles=['SOC Analyst','GRC Engineer','NIS2 & DORA Expert','ISO 27001 Lead Auditor','Threat Hunter'];
+var ri=0,ci=0,del=false,typed=document.getElementById('typed');
+function typeStep(){
+  if(!typed)return;
+  if(!del){
+    typed.textContent=roles[ri].substring(0,ci+1);
+    ci++;
+    if(ci===roles[ri].length){del=true;setTimeout(typeStep,2000);return;}
+  } else {
+    typed.textContent=roles[ri].substring(0,ci-1);
+    ci--;
+    if(ci===0){del=false;ri=(ri+1)%roles.length;}
+  }
+  setTimeout(typeStep,del?60:110);
+}
+typeStep();
 // CURSOR
-var cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
-document.addEventListener('mousemove',function(e){
-  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
-  setTimeout(function(){cur2.style.left=e.clientX+'px';cur2.style.top=e.clientY+'px';},80);
+var cur=document.getElementById('cur'),cur2=document.getElementById('cur2'),cur3=document.getElementById('cur3');
+var mx=0,my=0,cx2=0,cy2=0,cx3=0,cy3=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+function animCursor(){
+  cx2+=(mx-cx2)*.18;cy2+=(my-cy2)*.18;cur2.style.left=cx2+'px';cur2.style.top=cy2+'px';
+  cx3+=(mx-cx3)*.08;cy3+=(my-cy3)*.08;cur3.style.left=cx3+'px';cur3.style.top=cy3+'px';
+  requestAnimationFrame(animCursor);
+}animCursor();
+document.querySelectorAll('a,button,.cert-card,.exp-card,.skill-group').forEach(function(el){
+  el.addEventListener('mouseenter',function(){cur.style.transform='translate(-50%,-50%) scale(2.5)';cur2.style.transform='translate(-50%,-50%) scale(1.4)';});
+  el.addEventListener('mouseleave',function(){cur.style.transform='translate(-50%,-50%) scale(1)';cur2.style.transform='translate(-50%,-50%) scale(1)';});
+});
+// NAV SCROLL
+window.addEventListener('scroll',function(){
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
 });
 // SCROLL REVEAL
 var obs=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');}}); 
-},{threshold:0.12});
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('show');});
+},{threshold:0.08});
 document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
+setTimeout(function(){
+  document.querySelectorAll('.rv').forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight+100)el.classList.add('show');
+  });
+},80);
 // COUNTERS
-function runCounters(){
-  document.querySelectorAll('[data-count]').forEach(function(el){
-    var target=+el.getAttribute('data-count');
-    var suf=el.getAttribute('data-suffix')||'+';
-    var start=0,dur=1800,step=16;
-    var timer=setInterval(function(){
-      start+=Math.ceil(target/(dur/step));
-      if(start>=target){start=target;clearInterval(timer);}
-      el.textContent=start+suf;
-    },step);
-  });
-}
 var counted=false;
-var cobs=new IntersectionObserver(function(entries){
-  if(!counted&&entries[0].isIntersecting){counted=true;runCounters();}
-});
-cobs.observe(document.querySelector('.stats'));
+new IntersectionObserver(function(entries){
+  if(!counted&&entries[0].isIntersecting){
+    counted=true;
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target=+el.getAttribute('data-count'),suf=el.getAttribute('data-suffix')||'+';
+      var start=0,dur=1600,step=16;
+      var timer=setInterval(function(){
+        start+=Math.ceil(target/(dur/step));
+        if(start>=target){start=target;clearInterval(timer);}
+        el.textContent=start+suf;
+      },step);
+    });
+  }
+},{threshold:0.3}).observe(document.getElementById('stats-section'));
 // SKILL BARS
-var sobs=new IntersectionObserver(function(entries){
+new IntersectionObserver(function(entries){
   entries.forEach(function(e){
-    if(e.isIntersecting){
-      e.target.querySelectorAll('.skill-fill').forEach(function(f){
-        f.style.width=f.getAttribute('data-w')+'%';
-      });
-    }
+    if(e.isIntersecting)e.target.querySelectorAll('.skill-fill').forEach(function(f){f.style.width=f.getAttribute('data-w')+'%';});
   });
-},{threshold:0.2});
-document.querySelectorAll('.skill-group').forEach(function(g){sobs.observe(g);});
-// CANVAS ANIMATIONS
-var c1=document.getElementById('c1'),c2=document.getElementById('c2'),
-    c3=document.getElementById('c3'),c4=document.getElementById('c4');
-var x1=c1.getContext('2d'),x2=c2.getContext('2d'),
-    x3=c3.getContext('2d'),x4=c4.getContext('2d');
-function rz(){
-  [c1,c2,c3,c4].forEach(function(c){c.width=window.innerWidth;c.height=window.innerHeight;});
-}
+},{threshold:0.2}).observe(document.getElementById('skills'));
+// CANVAS
+var c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3'),c4=document.getElementById('c4');
+var x1=c1.getContext('2d'),x2=c2.getContext('2d'),x3=c3.getContext('2d'),x4=c4.getContext('2d');
+function rz(){[c1,c2,c3,c4].forEach(function(c){c.width=window.innerWidth;c.height=window.innerHeight;});}
 rz();window.addEventListener('resize',rz);
 // HEX GRID
 (function(){
-  var size=40,cols,rows,cells=[];
+  var S=44,cells=[];
   function init(){
-    cols=Math.ceil(window.innerWidth/(size*1.73))+1;
-    rows=Math.ceil(window.innerHeight/(size*1.5))+1;
     cells=[];
-    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++)cells.push({r:r,c:c,a:0,t:0});
-    setInterval(function(){
-      var ci=cells[Math.floor(Math.random()*cells.length)];
-      ci.a=1;ci.t=Date.now();
-    },200);
+    var cols=Math.ceil(window.innerWidth/(S*1.73))+2,rows=Math.ceil(window.innerHeight/(S*1.5))+2;
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++)cells.push({r:r,c:c,a:0,t:0,s:Math.random()});
+    setInterval(function(){var ci=cells[Math.floor(Math.random()*cells.length)];ci.a=1;ci.t=Date.now();},150);
   }
   init();window.addEventListener('resize',init);
   function draw(){
-    x1.clearRect(0,0,c1.width,c1.height);
-    x1.fillStyle='#060810';x1.fillRect(0,0,c1.width,c1.height);
+    x1.fillStyle='rgba(6,8,16,1)';x1.fillRect(0,0,c1.width,c1.height);
     var now=Date.now();
     cells.forEach(function(cell){
-      var xo=(cell.r%2)*size*0.86;
-      var cx=cell.c*size*1.73+xo,cy=cell.r*size*1.5;
-      var age=now-cell.t,alpha=cell.a*Math.max(0,1-age/2000);
+      var xo=(cell.r%2)*S*0.86,cx=cell.c*S*1.73+xo,cy=cell.r*S*1.5;
+      var age=now-cell.t,alpha=cell.a*Math.max(0,1-age/2500);
       x1.beginPath();
-      for(var i=0;i<6;i++){
-        var angle=Math.PI/180*(60*i-30);
-        var px=cx+size*0.9*Math.cos(angle),py=cy+size*0.9*Math.sin(angle);
-        i===0?x1.moveTo(px,py):x1.lineTo(px,py);
-      }
+      for(var i=0;i<6;i++){var ang=Math.PI/180*(60*i-30);x1.lineTo(cx+S*0.88*Math.cos(ang),cy+S*0.88*Math.sin(ang));}
       x1.closePath();
-      x1.strokeStyle='rgba(0,255,136,'+((0.03+alpha*0.12))+')';
-      x1.lineWidth=1;x1.stroke();
-      if(alpha>0.05){x1.fillStyle='rgba(0,255,136,'+(alpha*0.04)+')';x1.fill();}
+      x1.strokeStyle='rgba(0,255,136,'+(0.025+alpha*0.15)+')';x1.lineWidth=1;x1.stroke();
+      if(alpha>0.05){x1.fillStyle='rgba(0,255,136,'+(alpha*0.05)+')';x1.fill();}
     });
     requestAnimationFrame(draw);
   }draw();
 })();
-// MATRIX RAIN
+// MATRIX
 (function(){
-  var cols=Math.floor(window.innerWidth/16),drops=[];
-  var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()アイウエオカキクケコサシスセソ';
-  for(var ni=0;ni<cols;ni++)drops[ni]=Math.random()*-50;
+  var cols=Math.floor(window.innerWidth/15),drops=[];
+  var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+  for(var ni=0;ni<cols;ni++)drops[ni]=Math.random()*-100;
   function draw(){
-    x2.fillStyle='rgba(6,8,16,0.05)';x2.fillRect(0,0,c2.width,c2.height);
-    x2.font='13px Fira Code';
+    x2.fillStyle='rgba(6,8,16,0.04)';x2.fillRect(0,0,c2.width,c2.height);
     for(var ni=0;ni<drops.length;ni++){
-      var ch=chars[Math.floor(Math.random()*chars.length)];
-      var alpha=Math.random()*0.5+0.1;
+      x2.font=(Math.random()>0.95?'bold ':'')+' 13px Fira Code';
+      var alpha=Math.random()*0.6+0.1;
       x2.fillStyle='rgba(0,255,136,'+alpha+')';
-      x2.fillText(ch,ni*16,drops[ni]*16);
-      if(drops[ni]*16>c2.height&&Math.random()>0.975)drops[ni]=0;
-      drops[ni]+=0.5;
+      x2.fillText(chars[Math.floor(Math.random()*chars.length)],ni*15,drops[ni]*15);
+      if(drops[ni]*15>c2.height&&Math.random()>0.978)drops[ni]=0;
+      drops[ni]+=0.6;
     }
     requestAnimationFrame(draw);
   }draw();
 })();
-// NETWORK NODES
+// NETWORK
 (function(){
   var nodes=[];
-  for(var ni=0;ni<40;ni++)nodes.push({
-    x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
-    vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4,r:Math.random()*2+1
-  });
+  for(var ni=0;ni<50;ni++)nodes.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2+1,pulse:Math.random()*Math.PI*2});
   function draw(){
     x3.clearRect(0,0,c3.width,c3.height);
-    nodes.forEach(function(n){
-      n.x+=n.vx;n.y+=n.vy;
-      if(n.x<0||n.x>c3.width)n.vx*=-1;
-      if(n.y<0||n.y>c3.height)n.vy*=-1;
-    });
-    for(var ni=0;ni<nodes.length;ni++){
-      for(var j=ni+1;j<nodes.length;j++){
-        var dx=nodes[ni].x-nodes[j].x,dy=nodes[ni].y-nodes[j].y;
-        var dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<160){
-          x3.beginPath();x3.moveTo(nodes[ni].x,nodes[ni].y);x3.lineTo(nodes[j].x,nodes[j].y);
-          x3.strokeStyle='rgba(0,229,255,'+(0.15*(1-dist/160))+')';
-          x3.lineWidth=.5;x3.stroke();
-        }
-      }
+    nodes.forEach(function(n){n.x+=n.vx;n.y+=n.vy;n.pulse+=0.03;if(n.x<0||n.x>c3.width)n.vx*=-1;if(n.y<0||n.y>c3.height)n.vy*=-1;});
+    for(var ni=0;ni<nodes.length;ni++)for(var j=ni+1;j<nodes.length;j++){
+      var dx=nodes[ni].x-nodes[j].x,dy=nodes[ni].y-nodes[j].y,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<180){x3.beginPath();x3.moveTo(nodes[ni].x,nodes[ni].y);x3.lineTo(nodes[j].x,nodes[j].y);x3.strokeStyle='rgba(0,229,255,'+(0.18*(1-dist/180))+')';x3.lineWidth=.6;x3.stroke();}
     }
     nodes.forEach(function(n){
-      x3.beginPath();x3.arc(n.x,n.y,n.r,0,Math.PI*2);
-      x3.fillStyle='rgba(0,229,255,0.5)';x3.fill();
+      var r=n.r+(Math.sin(n.pulse)*.5);
+      x3.beginPath();x3.arc(n.x,n.y,r,0,Math.PI*2);x3.fillStyle='rgba(0,229,255,0.6)';x3.fill();
     });
     requestAnimationFrame(draw);
   }draw();
 })();
-// SCAN LINE
+// SCAN
 (function(){
   var y=0;
   function draw(){
     x4.clearRect(0,0,c4.width,c4.height);
-    var g=x4.createLinearGradient(0,y-30,0,y+30);
-    g.addColorStop(0,'rgba(0,255,136,0)');
-    g.addColorStop(0.5,'rgba(0,255,136,0.03)');
-    g.addColorStop(1,'rgba(0,255,136,0)');
-    x4.fillStyle=g;x4.fillRect(0,y-30,c4.width,60);
-    y+=1.5;if(y>c4.height)y=0;
+    var g=x4.createLinearGradient(0,y-40,0,y+40);
+    g.addColorStop(0,'rgba(0,255,136,0)');g.addColorStop(.5,'rgba(0,255,136,.025)');g.addColorStop(1,'rgba(0,255,136,0)');
+    x4.fillStyle=g;x4.fillRect(0,y-40,c4.width,80);
+    y+=1.2;if(y>c4.height)y=0;
     requestAnimationFrame(draw);
   }draw();
 })();
